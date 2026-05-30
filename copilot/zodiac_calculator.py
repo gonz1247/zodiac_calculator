@@ -1,41 +1,68 @@
 """Zodiac Calculator CLI (renamed from cli.py)
 Usage: python zodiac_calculator.py M/D/YYYY [--system both|western|eastern]
 """
-import argparse
 import sys
 from parsers import parse_date
 from western import get_western_sign, format_western
 from eastern import get_eastern_sign, format_eastern
 
 
-def main(argv=None):
-    argv = argv if argv is not None else sys.argv[1:]
-    parser = argparse.ArgumentParser(description="Zodiac Calculator: print Western and Eastern zodiac for a birthdate")
-    parser.add_argument("birthdate", help="Birthdate in M/D/YYYY format, e.g. 3/21/1990")
-    parser.add_argument("--system", choices=("both", "western", "eastern"), default="both", help="Which zodiac system to show")
-    args = parser.parse_args(argv)
+def run_once(birthdate_str: str, system: str = "both"):
+    """Process a single birthdate string and return (rc, out_text, err_text).
 
+    rc: 0 on success, 2 on input parse error.
+    out_text: formatted result lines (Western then Eastern when applicable)
+    err_text: error message on failure (empty on success)
+    """
     try:
-        dob = parse_date(args.birthdate)
+        dob = parse_date(birthdate_str)
     except ValueError as e:
-        print(f"Error: {e}", file=sys.stderr)
-        return 2
+        return 2, "", str(e)
 
     outputs = []
-    if args.system in ("both", "western"):
+    if system in ("both", "western"):
         w = get_western_sign(dob)
         outputs.append(format_western(w))
-    if args.system in ("both", "eastern"):
+    if system in ("both", "eastern"):
         e = get_eastern_sign(dob)
         outputs.append(format_eastern(e))
-
     out_text = "\n".join(outputs)
-    enc = getattr(sys.stdout, "encoding", None) or "utf-8"
+    return 0, out_text, ""
+
+
+def main(argv=None):
+    """Interactive loop when run as a terminal program.
+
+    If argv is provided (list), it is ignored — this program is interactive-only.
+    """
+    # Interactive loop
     try:
-        sys.stdout.buffer.write((out_text + "\n").encode(enc, errors="replace"))
+        while True:
+            try:
+                user_in = input("Enter birthdate (M/D/YYYY) or 'q' to quit: ").strip()
+            except (EOFError, KeyboardInterrupt):
+                print()
+                return 0
+            if not user_in:
+                continue
+            if user_in.lower() in ("q", "quit"):
+                print("Goodbye!")
+                return 0
+
+            rc, out_text, err = run_once(user_in)
+            if rc != 0:
+                print(f"Error: {err}", file=sys.stderr)
+                continue
+
+            # write using stream encoding with replacement for unsupported characters
+            enc = getattr(sys.stdout, "encoding", None) or "utf-8"
+            try:
+                sys.stdout.buffer.write((out_text + "\n").encode(enc, errors="replace"))
+            except Exception:
+                print(out_text.encode(enc, errors="replace").decode(enc))
+            # loop for next input
     except Exception:
-        print(out_text.encode(enc, errors="replace").decode(enc))
-    return 0
+        return 1
 
 
 if __name__ == "__main__":

@@ -41,3 +41,4 @@ def test_valid_month_day():
     assert not valid_month_day(2021,2,29)
     assert valid_month_day(2021,1,31)
     assert not valid_month_day(2021,4,31)
+    assert not valid_month_day(2020,0,10)

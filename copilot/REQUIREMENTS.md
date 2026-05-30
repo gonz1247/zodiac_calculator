@@ -14,7 +14,9 @@ Core requirements
 
 Testing & quality
 - Tests: pytest-based test suite located in tests/ covering parsing, Western logic (including leap years and edge dates), and Eastern mapping.
-- Coverage: target 100% for this small codebase.
+- Coverage: target 100% for this small codebase. Use pytest-cov to generate coverage reports including branch coverage.
+  - Example: pytest --cov=. --cov-branch --cov-report=term-missing
+  - HTML report: pytest --cov=. --cov-branch --cov-report=html
 - CI: optional; local venv + pytest is sufficient for development.
 
 Environment & layout

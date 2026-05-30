@@ -1,5 +1,5 @@
 from datetime import date
-from eastern import get_eastern_sign
+from eastern import get_eastern_sign, format_eastern
 
 def test_eastern_cycle():
     # 1900 is Rat, 1901 is Ox, ...
@@ -15,3 +15,9 @@ def test_eastern_cycle_wrap():
     assert get_eastern_sign(date(1912,1,1))["name"] == "Rat"
     assert get_eastern_sign(date(2020,1,1))["name"] == "Rat"
     assert get_eastern_sign(date(2021,1,1))["name"] == "Ox"
+
+def test_format_eastern_output():
+    sign = get_eastern_sign(date(1990, 3, 21))
+    out = format_eastern(sign)
+    expected = f"{sign['emoji']} {sign['name']} — {sign['desc']}"
+    assert out == expected

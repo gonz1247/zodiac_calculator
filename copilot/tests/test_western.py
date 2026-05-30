@@ -1,5 +1,5 @@
 from datetime import date
-from western import get_western_sign
+from western import get_western_sign, format_western
 
 def test_western_signs():
     # Aries: Mar 21–Apr 19
@@ -19,3 +19,9 @@ def test_western_sign_range_wrap():
     # Before Jan 20 is Capricorn
     assert get_western_sign(date(2020,1,1))["name"] == "Capricorn"
     assert get_western_sign(date(2020,1,19))["name"] == "Capricorn"
+
+def test_format_western_output():
+    sign = get_western_sign(date(1990, 3, 21))
+    out = format_western(sign)
+    expected = f"{sign['emoji']} {sign['name']} — {sign['range']}: {sign['desc']}"
+    assert out == expected

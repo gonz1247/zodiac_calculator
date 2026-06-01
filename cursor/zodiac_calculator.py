@@ -19,6 +19,11 @@ COMPAT_PROMPT = "Check compatibility with another birthdate? (y/n): "
 ANOTHER_PROMPT = "Calculate another? (y/n): "
 
 
+def _write_prompt(output_stream: TextIO, prompt: str) -> None:
+    """Write a prompt and flush so it appears before ``readline()`` waits."""
+    print(prompt, end="", file=output_stream, flush=True)
+
+
 def is_yes(response: str) -> bool:
     """Return True if the response means yes (y or yes, case-insensitive)."""
     return response.strip().lower() in {"y", "yes"}
@@ -67,7 +72,7 @@ def prompt_birthdate(
         Parsed ``(year, month, day)``.
     """
     while True:
-        print(prompt, end="", file=output_stream)
+        _write_prompt(output_stream, prompt)
         try:
             line = input_stream.readline()
         except KeyboardInterrupt:
@@ -80,7 +85,7 @@ def prompt_birthdate(
         try:
             return parse_birthdate(line)
         except ValueError as exc:
-            print(f"Error: {exc}", file=output_stream)
+            print(f"Error: {exc}", file=output_stream, flush=True)
 
 
 def run_compatibility_subflow(
@@ -125,7 +130,7 @@ def run_calculator(
             eastern = eastern_sign(year, month, day)
             print_sign_results(western, eastern, output=out)
 
-            print(COMPAT_PROMPT, end="", file=out)
+            _write_prompt(out, COMPAT_PROMPT)
             try:
                 compat_response = inp.readline()
             except KeyboardInterrupt:
@@ -141,7 +146,7 @@ def run_calculator(
                 except (EOFError, KeyboardInterrupt):
                     break
 
-            print(ANOTHER_PROMPT, end="", file=out)
+            _write_prompt(out, ANOTHER_PROMPT)
             try:
                 another_response = inp.readline()
             except KeyboardInterrupt:

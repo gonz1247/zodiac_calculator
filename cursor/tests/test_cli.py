@@ -42,6 +42,14 @@ def test_print_compatibility_results(capsys) -> None:
     assert "Eastern compatibility: Challenging" in captured.out
 
 
+def test_prompt_birthdate_flushes_before_read() -> None:
+    inp = io.StringIO("3/21/1990\n")
+    out = io.StringIO()
+    with patch.object(out, "flush") as mock_flush:
+        cli.prompt_birthdate(inp, out)
+        mock_flush.assert_called()
+
+
 def test_prompt_birthdate_valid() -> None:
     inp = io.StringIO("3/21/1990\n")
     out = io.StringIO()

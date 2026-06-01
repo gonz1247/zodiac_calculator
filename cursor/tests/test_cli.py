@@ -38,8 +38,8 @@ def test_print_compatibility_results(capsys) -> None:
         EasternAnimal.HORSE,
     )
     captured = capsys.readouterr()
-    assert "Western compatibility: Compatible" in captured.out
-    assert "Eastern compatibility: Challenging" in captured.out
+    assert "Western (Aries + Leo): Compatible" in captured.out
+    assert "Eastern (Rat + Horse): Challenging" in captured.out
 
 
 def test_prompt_birthdate_flushes_before_read() -> None:
@@ -86,8 +86,8 @@ def test_run_calculator_with_compatibility() -> None:
     out = io.StringIO()
     cli.run_calculator(inp, out)
     text = out.getvalue()
-    assert "Western compatibility: Compatible" in text
-    assert "Eastern compatibility:" in text
+    assert "Western (Aries + Leo): Compatible" in text
+    assert "Eastern (Horse + Horse):" in text
 
 
 def test_run_calculator_invalid_then_valid() -> None:
@@ -123,7 +123,7 @@ def test_run_calculator_compat_invalid_then_valid() -> None:
     cli.run_calculator(inp, out)
     text = out.getvalue()
     assert "Error:" in text
-    assert "Western compatibility: Compatible" in text
+    assert "Western (Aries + Leo): Compatible" in text
 
 
 def test_run_calculator_compat_prompt_eof() -> None:

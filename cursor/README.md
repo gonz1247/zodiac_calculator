@@ -44,8 +44,8 @@ Eastern sign: Horse
   Horses are free-spirited, witty, and thrive on independence.
 Check compatibility with another birthdate? (y/n): y
 Enter birthdate (M/D/YYYY): 7/23/1990
-Western compatibility: Compatible
-Eastern compatibility: Compatible
+Western (Aries + Leo): Compatible
+Eastern (Horse + Horse): Compatible
 Calculate another? (y/n): n
 Goodbye!
 ```
@@ -53,7 +53,7 @@ Goodbye!
 ### Interaction flow
 
 1. Enter a birthdate → see Western sign, Eastern sign, and a horoscope blurb for each
-2. Optionally check compatibility with a second birthdate
+2. Optionally check compatibility with a second birthdate (sign pairs and rating on one line per system)
 3. Choose whether to look up another birthdate or quit
 
 Answer **`y`** or **`yes`** (case-insensitive) to continue at yes/no prompts; anything else exits at "Calculate another?".

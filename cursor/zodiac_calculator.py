@@ -51,12 +51,18 @@ def print_compatibility_results(
     *,
     output: TextIO | None = None,
 ) -> None:
-    """Print Western and Eastern compatibility for two birthdates."""
+    """Print sign pairs and compatibility on one line per zodiac system."""
     out = output or sys.stdout
     western_level = western_compatibility(sign_a, sign_b)
     eastern_level = eastern_compatibility(animal_a, animal_b)
-    print(f"Western compatibility: {western_level.value}", file=out)
-    print(f"Eastern compatibility: {eastern_level.value}", file=out)
+    print(
+        f"Western ({sign_a.value} + {sign_b.value}): {western_level.value}",
+        file=out,
+    )
+    print(
+        f"Eastern ({animal_a.value} + {animal_b.value}): {eastern_level.value}",
+        file=out,
+    )
 
 
 def prompt_birthdate(

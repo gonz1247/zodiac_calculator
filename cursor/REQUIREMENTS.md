@@ -346,10 +346,10 @@ After a successful birthdate lookup:
 
 1. Prompt: `Check compatibility with another birthdate? (y/n): `
 2. If yes (`y` or `yes`, case-insensitive): prompt `Enter birthdate (M/D/YYYY): ` for the second date.
-3. On valid second date, print:
+3. On valid second date, print both pairs' signs and compatibility on one line per system:
    ```
-   Western compatibility: Compatible
-   Eastern compatibility: Challenging
+   Western (Aries + Leo): Compatible
+   Eastern (Horse + Horse): Compatible
    ```
 4. On invalid second date: print an error and re-prompt for that date only (do not restart the full loop).
 

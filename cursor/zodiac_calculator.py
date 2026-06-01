@@ -16,7 +16,7 @@ WELCOME_MESSAGE = "Welcome to the Zodiac Calculator!"
 EXIT_MESSAGE = "Goodbye!"
 BIRTHDATE_PROMPT = "Enter birthdate (M/D/YYYY): "
 COMPAT_PROMPT = "Check compatibility with another birthdate? (y/n): "
-ANOTHER_PROMPT = "Calculate another? (y/n): "
+ANOTHER_PROMPT = "Calculate new zodiac sign? (y/n): "
 
 
 def _write_prompt(output_stream: TextIO, prompt: str) -> None:

@@ -1,0 +1,17 @@
+---
+description: Python coding standards for the zodiac calculator
+globs: **/*.py
+alwaysApply: false
+---
+
+# Python Standards
+
+- Target **Python 3.13**; prefer stdlib over third-party runtime dependencies.
+- Line length **100**; format with Black; lint with Ruff.
+- Use **type hints** on all public functions.
+- Use **NumPy-style docstrings** on public modules and functions.
+
+## Dependencies
+
+- List dev tools (`pytest`, `pytest-cov`) in `requirements.txt`.
+- Do not commit `venv/`, `__pycache__/`, `.pytest_cache/`, or coverage HTML output.

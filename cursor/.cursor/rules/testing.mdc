@@ -1,0 +1,24 @@
+---
+description: Testing conventions for the zodiac calculator
+globs: tests/**/*.py
+alwaysApply: false
+---
+
+# Testing Standards
+
+- Use **pytest**; test files live in `tests/` and mirror module names.
+- Test **behavior**, not private implementation details.
+
+## Required coverage
+
+- Target 100% code coverge in test as this is a simple codebase
+
+## Verification
+
+Before finishing a task, run:
+
+```bash
+pytest --cov=. --cov-branch --cov-report=term-missing
+```
+
+Fix failing tests; do not weaken assertions to make tests pass.

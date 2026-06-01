@@ -1,0 +1,29 @@
+---
+description: How the agent should implement and verify changes
+alwaysApply: true
+---
+
+# Agent Workflow
+
+## Before coding
+
+1. Read `REQUIREMENTS.md` for the feature or bug in scope.
+2. Identify which modules change; keep diffs focused.
+3. Ask for clarification before changing public function signatures.
+
+## While coding
+
+- Match existing naming and module boundaries.
+- Add or update tests in the same change when behavior changes.
+- Do not add features beyond `REQUIREMENTS.md` unless asked.
+
+## Before finishing
+
+1. Run `pytest` and fix failures.
+2. Run Ruff/Black if configured.
+3. Summarize what changed and which tests cover it.
+
+## Commits and PRs
+
+- Do not commit unless the user asks.
+- Prefer small, reviewable changes over large rewrites.

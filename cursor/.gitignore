@@ -1,0 +1,14 @@
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Coverage (pytest-cov / coverage.py generated output)
+.coverage
+.coverage.*
+.coveragerc
+htmlcov/
+coverage.xml
+*.cover
+*.egg-info/
+.env

@@ -1,0 +1,17 @@
+---
+description: Scope and architecture for the Cursor zodiac calculator
+alwaysApply: true
+---
+
+# Project Scope
+
+This subdirectory (`cursor/`) is the Cursor AI implementation of the Zodiac Calculator.
+
+- Work only inside `cursor/`. Do not read or modify sibling tool directories.
+- Follow `REQUIREMENTS.md` as the source of truth for behavior and layout.
+
+## Done means
+
+- Requirements in `REQUIREMENTS.md` are met
+- `pytest` passes with full coverage on public behavior
+- No secrets or committed virtualenv artifacts

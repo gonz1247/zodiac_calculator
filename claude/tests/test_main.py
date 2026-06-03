@@ -26,6 +26,8 @@ from zodiac.western import WesternSign
         ("2024-02-29", (2024, 2, 29)),  # valid leap day
         ("05/15/1990", (1990, 5, 15)),
         ("1/1/2000", (2000, 1, 1)),
+        ("1990-5-15", (1990, 5, 15)),
+        ("1990-5-1", (1990, 5, 1)),
     ],
 )
 def test_parse_date_valid(date_str, expected):
@@ -42,7 +44,7 @@ def test_parse_date_valid(date_str, expected):
         "2000-00-01",  # month 0
         "2000-01-00",  # day 0
         "",
-        "1990-5-15",  # single-digit month in YYYY-MM-DD (not matched by \d{2})
+        "19900-5-15",  # year too long
     ],
 )
 def test_parse_date_invalid(date_str):

@@ -18,7 +18,7 @@ from zodiac.western import (
 
 
 def parse_date(date_str: str) -> tuple[int, int, int] | None:
-    m = re.fullmatch(r"(\d{4})-(\d{2})-(\d{2})", date_str)
+    m = re.fullmatch(r"(\d{4})-(\d{1,2})-(\d{1,2})", date_str)
     if m:
         year, month, day = int(m.group(1)), int(m.group(2)), int(m.group(3))
     else:
@@ -70,19 +70,21 @@ def run_loop() -> None:
     print("Discover your Western and Chinese zodiac signs.")
 
     while True:
-        print()
-        date_str = input(
-            "Enter a birthdate (YYYY-MM-DD or MM/DD/YYYY), or 'q' to quit: "
-        ).strip()
+        print("\n" + "─" * 44)
 
-        if date_str.lower() in ("q", "quit"):
-            print("Goodbye!")
-            break
-
-        parsed = parse_date(date_str)
-        if parsed is None:
-            print("Invalid date. Please use YYYY-MM-DD or MM/DD/YYYY.")
-            continue
+        # Collect and validate the primary birthdate in a tight inner loop so
+        # that invalid-date re-prompts don't get a new separator.
+        parsed = None
+        while parsed is None:
+            date_str = input(
+                "Enter a birthdate (YYYY-MM-DD or MM/DD/YYYY), or 'q' to quit: "
+            ).strip()
+            if date_str.lower() in ("q", "quit"):
+                print("Goodbye!")
+                return
+            parsed = parse_date(date_str)
+            if parsed is None:
+                print("Invalid date. Please use YYYY-MM-DD or MM/DD/YYYY.")
 
         year, month, day = parsed
 
@@ -96,20 +98,19 @@ def run_loop() -> None:
             input("\nCheck compatibility with another person? (y/n): ").strip().lower()
         )
         if answer == "y":
-            while True:
+            parsed2 = None
+            while parsed2 is None:
                 date_str2 = input(
                     "Enter their birthdate (YYYY-MM-DD or MM/DD/YYYY): "
                 ).strip()
                 parsed2 = parse_date(date_str2)
                 if parsed2 is None:
                     print("Invalid date. Please use YYYY-MM-DD or MM/DD/YYYY.")
-                    continue
-                year2, month2, day2 = parsed2
-                sign2 = get_western_sign(month2, day2)
-                animal2, element2, polarity2 = get_chinese_sign(year2, month2, day2)
-                display_western_compatibility(sign, sign2)
-                display_chinese_compatibility(animal, animal2, element2, polarity2)
-                break
+            year2, month2, day2 = parsed2
+            sign2 = get_western_sign(month2, day2)
+            animal2, element2, polarity2 = get_chinese_sign(year2, month2, day2)
+            display_western_compatibility(sign, sign2)
+            display_chinese_compatibility(animal, animal2, element2, polarity2)
 
 
 if __name__ == "__main__":  # pragma: no cover

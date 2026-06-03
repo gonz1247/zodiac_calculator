@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(pytest*)",
+            "shell": "bash",
+            "command": "python -m black --check main.py zodiac/ tests/ && python -m ruff check main.py zodiac/ tests/",
+            "statusMessage": "Checking black + ruff before running tests..."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -13,6 +13,9 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Claude Code personal settings overrides
+.claude/settings.local.json
+
 # Distribution
 dist/
 build/
